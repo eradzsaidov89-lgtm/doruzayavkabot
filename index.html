@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoruZayavka</title>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: auto;
+            background: white;
+            padding: 24px;
+            border-radius: 18px;
+            box-shadow: 0 4px 15px #00000012;
+        }
+
+        h2 {
+            text-align: center;
+            color: #17365d;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 7px;
+            font-weight: bold;
+            color: #263445;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #1687e8;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 10px;
+            background: #1687e8;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>📋 DoruZayavka</h2>
+
+    <form id="orderForm">
+
+        <label for="name">Имя</label>
+        <input type="text" id="name" placeholder="Введите имя" required>
+
+        <label for="surname">Фамилия</label>
+        <input type="text" id="surname" placeholder="Введите фамилию" required>
+
+        <label for="phone">Номер телефона</label>
+        <input type="tel" id="phone" placeholder="+992 XX XXX XX XX" required>
+
+        <label for="customer">Заказчик</label>
+        <input type="text" id="customer" placeholder="Введите заказчика" required>
+
+        <label for="medicines">Дорухо</label>
+        <textarea id="medicines" placeholder="Введите названия лекарств и количество" required></textarea>
+
+        <button type="submit">📨 Отправить заявку</button>
+
+    </form>
+
+</div>
+
+<script>
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
+
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const order = {
+            name: document.getElementById('name').value,
+            surname: document.getElementById('surname').value,
+            phone: document.getElementById('phone').value,
+            customer: document.getElementById('customer').value,
+            medicines: document.getElementById('medicines').value
+        };
+
+        tg.sendData(JSON.stringify(order));
+    });
+</script>
+
+</body>
+</html>
